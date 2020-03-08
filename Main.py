@@ -2,6 +2,7 @@ from Product import Product
 import sqlite3
 import pathlib
 from WsjCrawler import WsjCrawler
+from datetime import date, timedelta
 
 
 cur_dir = str(pathlib.Path(__file__).parent.absolute())
@@ -16,4 +17,7 @@ for i in cur.fetchall():
 crawler = WsjCrawler()
 
 for p in products:
-    crawler.crawl(p)
+    for x in crawler.crawl(p):
+        cur.execute(x.db_save_command())
+conn.commit()
+conn.close()
