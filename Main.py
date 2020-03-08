@@ -8,9 +8,12 @@ cur_dir = str(pathlib.Path(__file__).parent.absolute())
 conn = sqlite3.connect(cur_dir + '/database.db')
 cur = conn.cursor()
 
+products = []
 cur.execute("select * from PRODUCT")
-products = cur.fetchall()
+for i in cur.fetchall():
+    products.append(Product(i[0], i[1], i[2], i[3], i[4]))
 
 crawler = WsjCrawler()
-res = crawler.crawl(None)
 
+for p in products:
+    crawler.crawl(p)
