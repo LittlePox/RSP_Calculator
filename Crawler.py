@@ -7,9 +7,8 @@ import pathlib
 class Crawler:
     current_dir = str(pathlib.Path(__file__).parent.absolute())
 
-    @abstractmethod
     def crawl_by_dates(self, product, start, end):
-        pass
+        return []
 
     def crawl(self, product):
         end = date.today()
