@@ -43,7 +43,7 @@ for p in products:
     quotes.reverse()
     week_rets = [get_weekly_return(quotes, w) for w in weeks]
     print("last week return: {:.2f}%".format(week_rets[len(weeks) - 1] * 100))
-    lamb = 0.95
+    lamb = 0.98
     week_weights = [1]
     for i in range(1, len(weeks) - 1):
         week_weights.append(week_weights[i - 1] * lamb)
