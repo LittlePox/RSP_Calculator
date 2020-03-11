@@ -26,7 +26,7 @@ conn.commit()
 
 print("Crawling done.")
 
-today = datetime.today().date() + timedelta(days=2)
+today = datetime.today().date() + timedelta(days=1, hours=12)
 this_week = Week(today)
 weeks = []
 for i in range(0, 100):
