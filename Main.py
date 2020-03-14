@@ -26,7 +26,7 @@ conn.commit()
 
 print("Crawling done.")
 
-today = datetime.today().date() + timedelta(days=1, hours=12)
+today = (datetime.today() + timedelta(days=1, hours=16)).date()
 this_week = Week(today)
 weeks = []
 for i in range(0, 100):
@@ -62,18 +62,19 @@ for p in products:
         weighted_ret.append((week_rets[i], week_weights[i]))
     weighted_ret.sort()
 
-    quantile = [0.05, 0.15, 0.35, 0.65, 0.85, 0.95, 1.01]
+    quantile = [0.03, 0.15, 0.30, 0.70, 0.85, 0.97, 1.01]
     idx = 0
-    pos = 3
+    pos = 4
     total = 0
     for i in range(0, len(weeks) - 1):
         total += weighted_ret[i][1]
         if total >= quantile[idx]:
             print("{:.2f}% quantile: {:.2f}%".format(
-                quantile[idx] * 100, (weighted_ret[i][0] + weighted_ret[i - 1][0]) * 50))
+                quantile[idx] * 100, (weighted_ret[i][0] + weighted_ret[max(i - 1, 0)][0]) * 50)
+            )
             idx = idx + 1
-        if weighted_ret[i][0] >= last_week_ret and pos == 3:
-            pos -= idx
+        if weighted_ret[i][0] >= last_week_ret and pos == 4:
+            pos -= idx + 1
     print("Level adjustment: {0}".format(pos))
 
     ivst = None
