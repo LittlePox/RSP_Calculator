@@ -17,7 +17,7 @@ cur.execute("select * from PRODUCT")
 for i in cur.fetchall():
     products.append(Product(i[0], i[1], i[2], i[3], i[4]))
 
-crawler = Crawler()
+crawler = WsjCrawler()
 
 for p in products:
     for x in crawler.crawl(p):
@@ -75,6 +75,8 @@ for p in products:
             idx = idx + 1
         if weighted_ret[i][0] >= last_week_ret and pos == 4:
             pos -= idx + 1
+    if pos == 4:
+        pos = -3
     print("Level adjustment: {0}".format(pos))
 
     ivst = None
