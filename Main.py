@@ -26,7 +26,7 @@ conn.commit()
 
 print("Crawling done.")
 
-today = (datetime.today() + timedelta(days=1, hours=16)).date()
+today = (datetime.today() + timedelta(days=2, hours=16)).date()
 this_week = Week(today)
 weeks = []
 for i in range(0, 100):
@@ -99,6 +99,9 @@ for p in products:
             new_level = new_level + 1
         new_level += pos
         new_level = min(3, max(-3, new_level))
+
+        print("original level: {0}, new level: {1}".format(
+            ivst.level, new_level))
 
         new_ivst = ProductInvestment(
             p.id, this_week.start, ivst.base_amount, new_level)
