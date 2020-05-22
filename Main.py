@@ -14,19 +14,19 @@ cur = conn.cursor()
 
 products = []
 cur.execute("select * from PRODUCT")
-for i in cur.fetchall():
+for i in cur.fetchall()[4:]:
     products.append(Product(i[0], i[1], i[2], i[3], i[4]))
 
 crawler = WsjCrawler()
 
 for p in products:
-    for x in crawler.crawl(p):
+    for x in crawler.crawl_by_dates(p, (datetime.today() - timedelta(days=1500)).date(), (datetime.today()).date()):
         cur.execute(x.db_save_command())
 conn.commit()
 
 print("Crawling done.")
 
-today = (datetime.today() + timedelta(days=2, hours=16)).date()
+today = (datetime.today() + timedelta(days=1, hours=16)).date()
 this_week = Week(today)
 weeks = []
 for i in range(0, 100):
