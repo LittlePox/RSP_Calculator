@@ -44,4 +44,4 @@ def get_weekly_return(quotes, week):
     r = idx + 1
     while r + 1 < len(quotes) and quotes[r + 1].cob_date <= week.end:
         r = r + 1
-    return quotes[r].nav / quotes[idx].nav - 1
+    return quotes[r].nav / quotes[idx].nav - 1 if r < len(quotes) else 0

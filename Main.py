@@ -14,13 +14,13 @@ cur = conn.cursor()
 
 products = []
 cur.execute("select * from PRODUCT")
-for i in cur.fetchall()[4:]:
+for i in cur.fetchall():
     products.append(Product(i[0], i[1], i[2], i[3], i[4]))
 
 crawler = WsjCrawler()
 
 for p in products:
-    for x in crawler.crawl_by_dates(p, (datetime.today() - timedelta(days=1500)).date(), (datetime.today()).date()):
+    for x in crawler.crawl(p):
         cur.execute(x.db_save_command())
 conn.commit()
 
@@ -49,7 +49,9 @@ for p in products:
 
     week_rets = [get_weekly_return(quotes, w) for w in weeks]
     last_week_ret = week_rets[len(weeks) - 1]
+    this_week_ret = get_weekly_return(quotes, this_week)
     print("last week return: {:.2f}%".format(week_rets[len(weeks) - 1] * 100))
+    print("this week return: {:.2f}%".format(this_week_ret * 100))
     lamb = 0.98
     week_weights = [1]
     for i in range(1, len(weeks) - 1):
@@ -89,8 +91,8 @@ for p in products:
     if ivst is None:
         print("No investment has been made.")
     elif ivst.week_start == this_week.start:
-        print("Investment has been made this week with amount = {}".format(
-            ivst.actual_amount))
+        print("Investment has been made this week with level = {0} and amount = {1}".format(
+            ivst.level, ivst.actual_amount))
     else:
         new_level = ivst.level
         if new_level > 0:
