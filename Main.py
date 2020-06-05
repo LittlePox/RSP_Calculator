@@ -19,8 +19,10 @@ for i in cur.fetchall():
 
 crawler = WsjCrawler()
 
+crawl_all = False
 for p in products:
-    for x in crawler.crawl(p):
+    crawled = crawler.crawl_by_dates(p, (datetime.today() - timedelta(days=1500)).date(), datetime.today().date()) if crawl_all else crawler.crawl(p)
+    for x in crawled:
         cur.execute(x.db_save_command())
 conn.commit()
 
