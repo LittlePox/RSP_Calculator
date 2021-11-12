@@ -16,9 +16,9 @@ class WsjCrawler(Crawler):
         )
         print('Crawling {0}...'.format(url))
 
-        proxy = request.ProxyHandler({'https': '127.0.0.1:7890'})
-        opener = request.build_opener(proxy)
-        request.install_opener(opener)
+        #proxy = request.ProxyHandler({'https': '127.0.0.1:7890'})
+        #opener = request.build_opener(proxy)
+        #request.install_opener(opener)
 
         for i in range(0, 5):
             print('trial {0}'.format(i))
