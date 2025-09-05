@@ -114,7 +114,7 @@ for p in products:
         cur.execute(new_ivst.db_save_command())
         conn.commit()
 
-    print("Finised {0}".format(p.name))
+    print("Finished {0}".format(p.name))
     print()
 
 print("Finished all products.")
